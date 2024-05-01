@@ -162,6 +162,8 @@ void bookMenu()
 {
     while (1)
     {
+        char keyword[200];
+        int check = 0, i, id;
         system("CLS");
         fflush(stdin);
         buffer[strspn(buffer, "\n\r")] = '\0';
@@ -170,7 +172,6 @@ void bookMenu()
         switch (i)
         {
         case 1:
-            int check = 0, i;
             printf("\nEnter the name of book ");
             buffs(books[c].name);
             printf("\nEnter the author of book ");
@@ -216,25 +217,24 @@ void bookMenu()
             c--;
             break;
         case 4:
-            char keyword[200];
             printf("Enter book name ");
             buffs(keyword);
             searchBooks(keyword);
             break;
         case 5:
-            int id;
             printf("Enter ID of book ");
             buffi(&id);
             displayBooks(id);
             break;
         case 6:
             displayBooks(-1);
+            Sleep(2000);
             break;
 
         case 8:
             saveBooks();
             saveUsers();
-            printf("\nok");
+            printf("\nSaved Successfully.");
             break;
 
         case 9:
@@ -274,30 +274,35 @@ void modifyBooks()
                 printf("Enter the new name ");
                 buffs(changedVar_s);
                 strcpy(books[i].name, changedVar_s);
+                printf("Successfully changed!");
                 break;
             case 2:
                 printf("Enter the new Author ");
                 buffs(changedVar_s);
                 strcpy(books[i].author, changedVar_s);
+                printf("Successfully changed!");
                 break;
             case 3:
                 printf("Enter the new Quantity ");
                 buffi(&changedVar_i);
                 books[i].quantity = changedVar_i;
+                printf("Successfully changed!");
                 break;
             case 4:
                 printf("Enter the new ID ");
                 buffi(&changedVar_i);
                 books[i].id = changedVar_i;
+                printf("Successfully changed!");
                 break;
             default:
                 printf("Input a valid number ");
             }
+            break;
         }
-    }
-    if (i == n)
-    {
-        printf("Invalid ID");
+        if (i == c-1)
+        {
+            printf("Invalid ID");
+        }
     }
 }
 
@@ -400,7 +405,7 @@ void searchBooks(char word[200])
     int i;
     strcpy(keyword, simplify(word));
 
-    {for (i = 0; i < c; i++)
+    for (i = 0; i < c; i++)
     {
         strcpy(temp, simplify(books[i].name));
         strcpy(temp, simplify(strcat(temp, books[i].author)));
@@ -408,7 +413,7 @@ void searchBooks(char word[200])
         {
             displayBooks(books[i].id);
         }
-    }}
+    }
 }
 
 const char *simplify(char word[200])
@@ -443,12 +448,12 @@ void userMenu()
     int r;
     while (1)
     {
+        int check = 1;
         printf("\nEnter 1 to add user, 2 to delete user, 3 to display users, 4 to save and exit, 5 to return to previous menu ");
         buffi(&r);
         switch (r)
         {
         case 1:
-            int check = 1;
             while (1)
             {
                 check = 1;
